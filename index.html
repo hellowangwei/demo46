@@ -94,6 +94,7 @@
                 function canvasToImage(image) {
                     image.src = canvas.toDataURL("image/jpeg");
                 }
+
             }
 
         }
@@ -102,8 +103,7 @@
 
         $('#drawImg').on('click',function(){
             makeimg($('#subject').val(),$('#name').text(),$('#school').text())
-            $('#p1').hide();
-            $('#p2').show();
+
         });
 
         $('#back').on('click',function(){
