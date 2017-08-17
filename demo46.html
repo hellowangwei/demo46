@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="jquery-3.2.1.min.js"></script>
+</head>
+<style>
+    #p1,#p2{
+        width:100%;
+        position: relative;
+    }
+</style>
+<body style="max-width:1000px; margin:0 auto;">
+
+    <div id="p1">
+        <img src="46h5.png" style="width:100%;">
+        <div style="position: absolute;width:100%;height:100%;top:0;left:0;">
+
+            <div style="width: 40%;height: 3%;position: absolute;top: 51%;left: 30%;">
+                <select name="" id="subject"  style="position: absolute;bottom: 0;width: 100%;padding: 5px 0;">
+                    <option  value="英语四级">
+                        英语四级
+                    </option>
+                    <option  value="英语六级">
+                        英语六级
+                    </option>
+                </select>
+            </div>
+
+            <div  style="width: 40%;height: 3%;position: absolute;top: 58.5%;left: 30%;">
+                <div id="name" contenteditable="true" style="position: absolute;bottom: 0;width: 100%;padding: 5px 0;"></div>
+            </div>
+            <div  style="width: 40%;height: 3%;position: absolute;top: 66%;left: 30%;">
+                <div id="school" contenteditable="true" style="position: absolute;bottom: 0;width: 100%;padding: 5px 0;"></div>
+            </div>
+
+            <!--按钮-->
+            <div id="drawImg" style="width: 31%;height: 7%;position: absolute;top: 84.5%;left: 32%;border-radius: 10px;">
+            </div>
+        </div>
+
+    </div>
+
+    <div id="p2" style="display: none">
+        <img src="46h52.png" style="width:100%;">
+        <div style="position: absolute;width:100%;height:100%;top:0;left:0;">
+            <img id="ccc" src="./img41.jpg" style="width: 80%;position: absolute;top: 9%;left: 10%;">
+
+            <div id="back"  style=" width: 32%; height: 7%;position: absolute;top: 75.5%;left: 34%;"></div>
+            <a href="https://www.kechenggezi.com/download?s=17-gh-H5"  style=" width: 32%;height: 7%;position: absolute;top: 83.5%;left: 34%;"></a>
+        </div>
+
+
+
+    </div>
+    <script>
+        var canvas = document.createElement("canvas");
+        function makeimg(subject,name,school){
+            var src = parseInt(Math.random()*6+1)
+            if(subject=='英语四级'){
+                src = './img4'+src+'.jpg'
+            }else{
+                src = './img6'+src+'.jpg'
+            }
+            if(school=='')school='北京大学'
+            if(name=='')name='张三'
+            var img = new Image();
+            img.src = src;
+            img.onload= function(){
+                canvas.width = img.width;
+                canvas.height = img.height;
+                var ctx = canvas.getContext('2d');
+
+                //在画布左上角绘制图像
+                ctx.drawImage(img, 0,0);
+
+                ctx.font = '16px arial';
+                var txt = 'aaaaa'
+                var txtWidth = ctx.measureText(txt).width;
+                ctx.fillStyle = '#e6ab53';
+
+//写三个词
+                ctx.fillText(name, 179, 80);
+//            ctx.fillText(subject, 170, 80);
+                ctx.fillText(school, 179, 105);
+
+                canvasToImage($('#ccc')[0])
+                $('#p1').hide();
+                $('#p2').show();
+
+                //画出图
+                function canvasToImage(image) {
+                    image.src = canvas.toDataURL("image/jpeg");
+                }
+            }
+
+        }
+
+
+
+        $('#drawImg').on('click',function(){
+            makeimg($('#subject').val(),$('#name').text(),$('#school').text())
+            $('#p1').hide();
+            $('#p2').show();
+        });
+
+        $('#back').on('click',function(){
+            $('#p1').show();
+            $('#p2').hide();
+        });
+
+
+    </script>
+</body>
+</html>
